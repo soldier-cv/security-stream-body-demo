@@ -38,7 +38,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         // accessToken为空，表示未登录
-        if (StringUtils.isBlank(accessToken)) {
+        if (StrUtil.isBlank(accessToken)) {
             log.warn("未找到 'X-Auth-Token'。当前认证状态: {}", SecurityContextHolder.getContext().getAuthentication());
 
             chain.doFilter(request, response);

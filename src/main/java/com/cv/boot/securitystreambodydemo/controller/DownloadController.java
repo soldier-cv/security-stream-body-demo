@@ -1,5 +1,6 @@
 package com.cv.boot.securitystreambodydemo.controller;
 
+import cn.hutool.core.io.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -36,7 +37,7 @@ public class DownloadController {
 
         // 1. 创建一个临时文件用于演示
         Path tempFile = Files.createTempFile("demo-", ".txt");
-        Files.writeString(tempFile, "这是一个用于演示 StreamingResponseBody 的文件。");
+        FileUtil.writeUtf8String("这是一个用于演示 StreamingResponseBody 的文件。", tempFile.toFile());
         log.info("创建了临时文件: {}", tempFile.toAbsolutePath());
 
         // 2. 准备流式响应体
