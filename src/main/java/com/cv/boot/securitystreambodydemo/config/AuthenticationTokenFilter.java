@@ -1,7 +1,7 @@
 package com.cv.boot.securitystreambodydemo.config;
 
 import cn.hutool.core.util.StrUtil;
-import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.DispatcherType;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,6 +74,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         if ("/favicon.ico".equals(uri) || uri.startsWith("/.well-known")) {
             return true;
         }
-        return false;
+        // https://github.com/spring-projects/spring-security/issues/11962
+        // 仅处理REQUEST请求 其他的请求类型返回true 不处理
+        return request.getDispatcherType() != DispatcherType.REQUEST;
     }
 }
